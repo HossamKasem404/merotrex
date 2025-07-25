@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Doctors_Page extends StatelessWidget {
+  static String id = "Doctors_Page";
+
   final List<Map<String, String>> doctors = [
     {
       'name': 'Dr. Ahmed Al-Masri',

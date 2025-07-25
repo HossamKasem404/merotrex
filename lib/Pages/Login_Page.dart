@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ptow/Pages/Forget_Password/Forget_Password_Page.dart';
 import 'package:ptow/Pages/Home_Page.dart';
 import 'package:ptow/Pages/SignUp_Page.dart';
+import 'package:ptow/services/LogIn_Service.dart';
 
 class Login_Page extends StatelessWidget {
+  static String id = "Login_Page";
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -92,10 +95,17 @@ class Login_Page extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
+                    // onPressed: () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(builder: (_) => Home_page()),
+                    //   );
+                    // },
                     onPressed: () {
-                      Navigator.push(
+                      login(
+                        emailController.text,
+                        passwordController.text,
                         context,
-                        MaterialPageRoute(builder: (_) => Home_page()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -132,7 +142,7 @@ class Login_Page extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => Signup_Page()),
+                      MaterialPageRoute(builder: (_) => SignUp_Page()),
                     );
                   },
                   icon: Icon(Icons.person_add_alt, size: 20),

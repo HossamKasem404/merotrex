@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AiIdea_Page extends StatelessWidget {
+  static String id = "AiIdea_Page";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

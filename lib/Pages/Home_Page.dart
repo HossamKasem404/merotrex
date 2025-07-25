@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ptow/Pages/AI_idea_Page.dart';
 import 'package:ptow/Pages/Drawer_List.dart';
+import 'package:ptow/Pages/Family%20Member/Family_member_Page.dart';
 import 'package:ptow/Pages/Setting_Page.dart';
 
 class Home_page extends StatelessWidget {
+  static String id = "Home_page";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +91,10 @@ class Home_page extends StatelessWidget {
                 subtitle: Text('View your family members data'),
                 trailing: Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
-                  // Handle navigation
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => Family_Member_Page()),
+                  );
                 },
               ),
             ),

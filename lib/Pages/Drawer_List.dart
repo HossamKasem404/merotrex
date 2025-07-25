@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ptow/Pages/Doctors_Page.dart';
 import 'package:ptow/Pages/Pharmacy_Page.dart';
 import 'package:ptow/Pages/Setting_Page.dart';
+import 'package:ptow/services/LogOut_Service.dart';
 
 class Drawer_List extends StatelessWidget {
   @override
@@ -43,7 +44,9 @@ class Drawer_List extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.logout),
             title: Text('Log out'),
-            onTap: () {},
+            onTap: () {
+              LogOut_Service(context);
+            },
           ),
         ],
       ),
