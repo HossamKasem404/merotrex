@@ -58,13 +58,24 @@ class UserModel {
       first_name: jsonData["first_name"],
       last_name: jsonData["last_name"],
       photo: jsonData["photo"],
-      gender: jsonData["gender"],
+      gender: jsonData["gender"].toString(),
       email: jsonData["email"],
       date_of_birth: jsonData["date_of_birth"],
       updated_at: jsonData['updated_at'],
       created_at: jsonData['created_at'],
       id: jsonData["id"],
-      age: jsonData["age"],
+      age: jsonData["age"].toString(),
     );
+  }
+
+  String get genderLabel {
+    switch (gender) {
+      case "0":
+        return "Male";
+      case "1":
+        return "Female";
+      default:
+        return "غير محدد";
+    }
   }
 }

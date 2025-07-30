@@ -25,7 +25,6 @@ Future login(String? email, String? password, BuildContext context) async {
       token = userinfo["token"];
       print("احتفظ فيها");
 
-      // Navigator.pushNamed(context, "HomePage");
       Navigator.push(context, MaterialPageRoute(builder: (_) => Home_page()));
       print(
         "/////////////////////////////////////////////////////////////////////////////////////////////////////",
