@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:ptow/Models/Doctor_Model.dart';
 import 'package:ptow/main.dart';
-import 'package:ptow/Models/Add_FamilyMember_Model.dart';
 
-class GetFamilyMembersService {
-  Future<FamilyMember_Models?> getFamilyMembers() async {
+class Get_Doctors_Service {
+  Future<Doctors_Model?> getdoctors() async {
     try {
       final response = await http.get(
-        Uri.parse("$url/user/getMembers"),
+        Uri.parse("$url/user/getdoc"),
         headers: {
           "Accept": "application/json",
           "Authorization": "Bearer $token",
@@ -18,7 +18,7 @@ class GetFamilyMembersService {
         final responseData = jsonDecode(response.body);
         print(" $responseData");
 
-        return FamilyMember_Models.fromJson(responseData);
+        return Doctors_Model.fromJson(responseData);
       } else {
         throw Exception(" Error: ${response.statusCode}");
       }

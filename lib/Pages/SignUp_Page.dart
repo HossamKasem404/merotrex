@@ -359,7 +359,8 @@ class _SignUp_PageState extends State<SignUp_Page> {
                             date_of_birth: date_of_birth_Controller.text,
                             email: email_Controller.text,
                             password: password_Controller.text,
-                            password_confirmation: password_Controller.text,
+                            password_confirmation:
+                                confirmPassword_Controller.text,
                             context: context,
                           );
                         }

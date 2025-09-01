@@ -32,8 +32,17 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Family Member"),
         backgroundColor: Colors.blue,
+        elevation: 0,
+        title: const Text("Add Family Member"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -44,17 +53,17 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                Center(
-                  child: Text(
-                    'Add Family Member',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue[800],
-                    ),
-                  ),
-                ),
 
+                // Center(
+                //   child: Text(
+                //     'Add Family Member',
+                //     style: TextStyle(
+                //       fontSize: 24,
+                //       fontWeight: FontWeight.bold,
+                //       color: Colors.blue[800],
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(height: 24),
 
                 //  Name
@@ -168,7 +177,6 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 32),
 
                 SizedBox(

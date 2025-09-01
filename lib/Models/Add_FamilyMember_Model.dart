@@ -1,74 +1,81 @@
-class Add_FamilyMember_Model {
+class FamilyMember_Models {
+  final List<FamilyMember_Model> data;
   final String message;
   final int status;
-  final FamilyDataModel data;
 
-  Add_FamilyMember_Model({
+  FamilyMember_Models({
+    required this.data,
     required this.message,
     required this.status,
-    required this.data,
   });
 
-  factory Add_FamilyMember_Model.fromJson(Map<String, dynamic> json) {
-    return Add_FamilyMember_Model(
-      message: json["Message"],
-      status: json["Status"],
-      data: FamilyDataModel.fromJson(json["Data"]),
-    );
-  }
-}
-
-class FamilyDataModel {
-  final FamilyMemberModel familyMember;
-
-  FamilyDataModel({required this.familyMember});
-
-  factory FamilyDataModel.fromJson(Map<String, dynamic> json) {
-    return FamilyDataModel(
-      familyMember: FamilyMemberModel.fromJson(json["FamilyMember"]),
+  factory FamilyMember_Models.fromJson(Map<String, dynamic> json) {
+    return FamilyMember_Models(
+      data: List<FamilyMember_Model>.from(
+        json['data'].map((item) => FamilyMember_Model.fromJson(item)),
+      ),
+      message: json['Message'],
+      status: json['Status'],
     );
   }
 
-  get data => null;
+  Map<String, dynamic> toJson() {
+    return {
+      'data': data.map((e) => e.toJson()).toList(),
+      'Message': message,
+      'Status': status,
+    };
+  }
 }
 
-class FamilyMemberModel {
+class FamilyMember_Model {
+  final int id;
   final int userId;
   final String fullName;
   final String dateOfBirth;
   final int gender;
   final String relation;
   final String? photo;
-  final String updatedAt;
   final String createdAt;
-  final int id;
-  final int age;
+  final String updatedAt;
 
-  FamilyMemberModel({
+  FamilyMember_Model({
+    required this.id,
     required this.userId,
     required this.fullName,
     required this.dateOfBirth,
     required this.gender,
     required this.relation,
     this.photo,
-    required this.updatedAt,
     required this.createdAt,
-    required this.id,
-    required this.age,
+    required this.updatedAt,
   });
 
-  factory FamilyMemberModel.fromJson(Map<String, dynamic> json) {
-    return FamilyMemberModel(
-      userId: json["user_id"],
-      fullName: json["full_name"],
-      dateOfBirth: json["date_of_birth"],
-      gender: json["gender"],
-      relation: json["relation"],
-      photo: json["photo"],
-      updatedAt: json["updated_at"],
-      createdAt: json["created_at"],
-      id: json["id"],
-      age: json["age"],
+  factory FamilyMember_Model.fromJson(Map<String, dynamic> json) {
+    return FamilyMember_Model(
+      id: json['id'],
+      userId: json['user_id'],
+      fullName: json['full_name'],
+      dateOfBirth: json['date_of_birth'],
+      gender: json['gender'],
+      relation: json['relation'],
+      photo: json['photo'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'user_id': userId,
+      'full_name': fullName,
+      'date_of_birth': dateOfBirth,
+      'gender': gender,
+      'relation': relation,
+      'photo': photo,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
+    };
   }
 }

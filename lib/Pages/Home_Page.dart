@@ -12,7 +12,6 @@ class Home_page extends StatelessWidget {
     return Scaffold(
       drawer: Drawer_List(),
       appBar: AppBar(
-        // automaticallyImplyLeading: false,
         backgroundColor: Colors.blue,
         elevation: 0,
         title: Row(

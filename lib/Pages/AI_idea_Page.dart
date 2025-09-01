@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
 class AiIdea_Page extends StatelessWidget {
   static String id = "AiIdea_Page";
@@ -44,8 +45,24 @@ class AiIdea_Page extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  // Handle upload PDF action
+                onPressed: () async {
+                  FilePickerResult? result = await FilePicker.platform
+                      .pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['pdf'],
+                      );
+
+                  if (result != null) {
+                    String filePath = result.files.single.path!;
+                    print('Selected PDF path: $filePath');
+
+                    // هنا يمكنك معالجة الملف أو رفعه للسيرفر
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('PDF selected: $filePath')),
+                    );
+                  } else {
+                    print('No file selected.');
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,

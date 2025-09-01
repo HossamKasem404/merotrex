@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ptow/Pages/Family%20Member/Add_Family_Member_Page.dart';
 import 'package:ptow/Widget/FamilyMemeber_Widget.dart';
+import 'package:ptow/main.dart';
 import 'package:ptow/services/Get_FamilyMember_Service.dart';
 
 class Family_Member_Page extends StatelessWidget {
@@ -14,11 +15,12 @@ class Family_Member_Page extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
             onPressed: () {
-              // يمكنك إضافة إجراء عند الضغط
+              Navigator.of(context).pop();
             },
           ),
         ],
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -28,6 +30,7 @@ class Family_Member_Page extends StatelessWidget {
         },
         child: Icon(Icons.add),
       ),
+
       body: FutureBuilder(
         future: GetFamilyMembersService().getFamilyMembers(),
         builder: (context, snapshot) {
@@ -41,7 +44,7 @@ class Family_Member_Page extends StatelessWidget {
             final FamilyMember_List = snapshot.data!;
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 1,
                 childAspectRatio: 0.8,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
@@ -49,7 +52,10 @@ class Family_Member_Page extends StatelessWidget {
               itemCount: FamilyMember_List.data.length,
               itemBuilder: (context, index) {
                 final FamilyMember = FamilyMember_List.data[index];
-                return FamilyMember_Wedgite(FamilyMember: FamilyMember);
+                return FamilyMember_Wedgite(
+                  FamilyMember: FamilyMember,
+                  token: token,
+                );
               },
             );
           }

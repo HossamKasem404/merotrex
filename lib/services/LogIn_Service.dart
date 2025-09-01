@@ -26,9 +26,6 @@ Future login(String? email, String? password, BuildContext context) async {
       print("احتفظ فيها");
 
       Navigator.push(context, MaterialPageRoute(builder: (_) => Home_page()));
-      print(
-        "/////////////////////////////////////////////////////////////////////////////////////////////////////",
-      );
     } else {
       print("token not found");
     }
