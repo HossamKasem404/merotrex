@@ -4,7 +4,6 @@ import "package:flutter/material.dart";
 import "package:http/http.dart" as http;
 import "package:ptow/Models/Login_Model.dart";
 import "package:ptow/Pages/Home_Page.dart";
-import "package:ptow/Pages/Pharmacy_Page.dart";
 import "package:ptow/main.dart";
 
 Future login(String? email, String? password, BuildContext context) async {
@@ -24,6 +23,9 @@ Future login(String? email, String? password, BuildContext context) async {
       print("خزنا");
       token = userinfo["token"];
       print("احتفظ فيها");
+      userinfo["Data"]["first_name"] = responseData["Data"]["first_name"];
+      userinfo["Data"]["photo"] = responseData["Data"]["photo"];
+      userinfo["Data"]["email"] = responseData["Data"]["email"];
 
       Navigator.push(context, MaterialPageRoute(builder: (_) => Home_page()));
     } else {

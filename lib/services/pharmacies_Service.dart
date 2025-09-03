@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:ptow/Models/Doctor_Model.dart';
+import 'package:ptow/Models/Pharmacies_Model.dart';
 import 'package:ptow/main.dart';
 
-class Get_Doctors_Service {
-  Future<Doctors_Model?> getdoctors() async {
+class Get_Pharmacies_Service {
+  Future<Pharmacies_Model?> getPharmacies() async {
     try {
       final response = await http.get(
-        Uri.parse("$url/user/getdoc"),
+        Uri.parse("$url/user/getph"),
         headers: {
           "Accept": "application/json",
           "Authorization": "Bearer $token",
@@ -16,14 +16,14 @@ class Get_Doctors_Service {
 
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
-        print(" $responseData");
+        print("Response: $responseData");
 
-        return Doctors_Model.fromJson(responseData);
+        return Pharmacies_Model.fromJson(responseData);
       } else {
-        throw Exception(" Error: ${response.body}");
+        throw Exception("Error: ${response.statusCode}");
       }
     } catch (e) {
-      print(e);
+      print("Exception: $e");
       rethrow;
     }
   }

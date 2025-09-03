@@ -1,120 +1,58 @@
-// import 'package:flutter/material.dart';
-
-// class Doctors_Page extends StatelessWidget {
-//   static String id = "Doctors_Page";
-
-//   final List<Map<String, String>> doctors = [
-//     {
-//       'name': 'Dr. Ahmed Al-Masri',
-//       'specialty': 'Cardiologist',
-//       'phone': '(123) 456-7890',
-//     },
-//     {
-//       'name': 'Dr. Layla Hassan',
-//       'specialty': 'Pediatrician',
-//       'phone': '(987) 654-3210',
-//     },
-//     {
-//       'name': 'Dr. Omar Khalil',
-//       'specialty': 'Dermatologist',
-//       'phone': '(555) 123-4567',
-//     },
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.blue,
-//         elevation: 0,
-//         title: Text('Nearby Doctors', style: TextStyle(color: Colors.white)),
-//         actions: [
-//           IconButton(
-//             icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
-//             onPressed: () {
-//               // يمكنك وضع أي إجراء هنا
-//             },
-//           ),
-//         ],
-//       ),
-//       body: ListView.separated(
-//         padding: EdgeInsets.all(16),
-//         itemCount: doctors.length,
-//         separatorBuilder: (context, index) => Divider(),
-//         itemBuilder: (context, index) {
-//           final doctor = doctors[index];
-//           return Card(
-//             shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(12),
-//             ),
-//             elevation: 2,
-//             child: ListTile(
-//               leading: CircleAvatar(
-//                 backgroundColor: Colors.blue[100],
-//                 child: Icon(Icons.person, color: Colors.blue),
-//               ),
-//               title: Text(
-//                 doctor['name']!,
-//                 style: TextStyle(fontWeight: FontWeight.bold),
-//               ),
-//               subtitle: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [Text(doctor['specialty']!), Text(doctor['phone']!)],
-//               ),
-//               trailing: Icon(Icons.arrow_forward_ios, size: 16),
-//               onTap: () {
-//                 // يمكنك هنا إضافة توجيه لتفاصيل الطبيب
-//               },
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
+// Doctors_Page.dart
 import 'package:flutter/material.dart';
 import 'package:ptow/Widget/Doctor_Widget.dart';
 import 'package:ptow/services/Get_Doctors_Service.dart';
 
 class Doctors_Page extends StatelessWidget {
+  const Doctors_Page({super.key});
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFEBF2D6),
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFF244476),
         elevation: 0,
-        title: Text('Nearby Doctors', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Nearby Doctors',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
+            icon: const Icon(Icons.search, color: Colors.white),
             onPressed: () {
-              Navigator.of(context).pop();
+              // TODO: search action
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.filter_list, color: Colors.white),
+            onPressed: () {
+              // TODO: filter action
             },
           ),
         ],
       ),
-
       body: FutureBuilder(
         future: Get_Doctors_Service().getdoctors(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            print(snapshot.data);
-            return Text("something went wrong");
+            return const Center(child: Text("Something went wrong"));
           }
           if (snapshot.hasData) {
-            final Doctors_List = snapshot.data!;
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: 0.8,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-              ),
-              itemCount: Doctors_List.data.length,
+            final doctorsList = snapshot.data!;
+            return ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: doctorsList.data.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
               itemBuilder: (context, index) {
-                final Doctor = Doctors_List.data[index];
-                return Doctor_Wedgit(doctor: Doctor);
+                final doctor = doctorsList.data[index];
+                return Doctor_Wedgit(doctor: doctor);
               },
             );
           }

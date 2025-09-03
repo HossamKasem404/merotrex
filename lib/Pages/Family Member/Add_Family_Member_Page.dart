@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ptow/services/Add_FamilyMemeber_Service.dart';
@@ -6,12 +6,14 @@ import 'package:ptow/services/Add_FamilyMemeber_Service.dart';
 class Add_Family_Member_Page extends StatefulWidget {
   static String id = "AddFamilyMember";
 
+  const Add_Family_Member_Page({super.key});
+
   @override
   State<Add_Family_Member_Page> createState() => _Add_Family_Member_PageState();
 }
 
 class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
-  File? photo;
+  Uint8List? photo;
 
   final _formField = GlobalKey<FormState>();
   final Name_Controller = TextEditingController();
@@ -22,22 +24,24 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
   getImageCamera() async {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
     if (image == null) return;
-    final imageTemporary = File(image.path);
+
+    final imageBytes = await image.readAsBytes(); // ✅ للويب
     setState(() {
-      photo = imageTemporary;
+      photo = imageBytes;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFEBF2D6),
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFF244476),
         elevation: 0,
         title: const Text("Add Family Member"),
         actions: [
           IconButton(
-            icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
+            icon: const Icon(Icons.arrow_forward_ios, color: Colors.white),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -50,28 +54,14 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
           child: Form(
             key: _formField,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
 
-                // Center(
-                //   child: Text(
-                //     'Add Family Member',
-                //     style: TextStyle(
-                //       fontSize: 24,
-                //       fontWeight: FontWeight.bold,
-                //       color: Colors.blue[800],
-                //     ),
-                //   ),
-                // ),
-                const SizedBox(height: 24),
-
-                //  Name
                 TextField(
                   controller: Name_Controller,
                   decoration: InputDecoration(
                     hintText: 'Name',
-                    prefixIcon: Icon(Icons.person),
+                    prefixIcon: const Icon(Icons.person),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -80,12 +70,28 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
 
                 const SizedBox(height: 16),
 
-                // Date of Birth
-                TextField(
+                TextFormField(
                   controller: date_of_birth_Controller,
+                  readOnly: true,
                   decoration: InputDecoration(
                     hintText: 'year-month-day',
-                    prefixIcon: Icon(Icons.date_range),
+                    prefixIcon: IconButton(
+                      icon: const Icon(Icons.date_range),
+                      onPressed: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime.now(),
+                        );
+
+                        if (pickedDate != null) {
+                          String formattedDate =
+                              "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+                          date_of_birth_Controller.text = formattedDate;
+                        }
+                      },
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -94,35 +100,55 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
 
                 const SizedBox(height: 16),
 
-                // Gender
-                TextField(
-                  controller: gender_Controller,
+                DropdownButtonFormField<String>(
+                  value: null,
                   decoration: InputDecoration(
                     hintText: 'Gender',
-                    prefixIcon: Icon(Icons.male),
+                    prefixIcon: const Icon(Icons.male),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
+                  items: ['male', 'female']
+                      .map(
+                        (gender) => DropdownMenuItem<String>(
+                          value: gender,
+                          child: Text(gender),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    gender_Controller.text = value ?? "";
+                  },
                 ),
 
                 const SizedBox(height: 16),
 
-                // Relation
-                TextField(
-                  controller: relation_Controller,
+                DropdownButtonFormField<String>(
+                  value: null,
                   decoration: InputDecoration(
-                    hintText: 'Relation (e.g. Brother, Mother)',
-                    prefixIcon: Icon(Icons.group),
+                    hintText: 'Relation',
+                    prefixIcon: const Icon(Icons.group),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
+                  items: ['Father', 'Mother', 'Brother', 'Sister']
+                      .map(
+                        (relation) => DropdownMenuItem<String>(
+                          value: relation,
+                          child: Text(relation),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    relation_Controller.text = value ?? "";
+                  },
                 ),
 
                 const SizedBox(height: 24),
 
-                Text(
+                const Text(
                   "Add a photo",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
@@ -137,7 +163,7 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                             image: DecorationImage(
-                              image: FileImage(photo!),
+                              image: MemoryImage(photo!), // ✅ للويب
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -146,13 +172,13 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
                           width: 200,
                           height: 200,
                           decoration: BoxDecoration(
-                            color: Colors.grey[200],
+                            color: const Color(0xFF244476),
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.camera_alt,
                             size: 50,
-                            color: Colors.grey[600],
+                            color: Colors.white,
                           ),
                         ),
                 ),
@@ -162,10 +188,10 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
                 Center(
                   child: ElevatedButton.icon(
                     onPressed: getImageCamera,
-                    icon: Icon(Icons.camera),
-                    label: Text("Use Camera"),
+                    icon: const Icon(Icons.camera),
+                    label: const Text("Use Camera"),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                      backgroundColor: const Color(0xFF244476),
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 24,
@@ -177,6 +203,7 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 32),
 
                 SizedBox(
@@ -189,13 +216,13 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
                           date_of_birth: date_of_birth_Controller.text,
                           gender: gender_Controller.text,
                           relation: relation_Controller.text,
-                          photo: photo,
+                          photo: photo, // Uint8List
                           context: context,
                         );
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: const Color(0xFF244476),
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -204,6 +231,7 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
                     child: const Text(
                       "Add Member",
                       style: TextStyle(
+                        color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),

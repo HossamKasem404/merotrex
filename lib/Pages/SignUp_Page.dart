@@ -8,6 +8,8 @@ import 'package:ptow/services/SignUp_Service.dart';
 
 class SignUp_Page extends StatefulWidget {
   static String id = "Signup";
+
+  const SignUp_Page({super.key});
   @override
   State<SignUp_Page> createState() => _SignUp_PageState();
 }
@@ -65,9 +67,10 @@ class _SignUp_PageState extends State<SignUp_Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFEBF2D6),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xFF244476),
         elevation: 0,
         title: Row(
           children: [
@@ -103,7 +106,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blue[800],
+                      color: Color(0xFF244476),
                     ),
                   ),
 
@@ -114,7 +117,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blue[800],
+                      color: Color(0xFF244476),
                     ),
                   ),
 
@@ -153,10 +156,9 @@ class _SignUp_PageState extends State<SignUp_Page> {
                   ),
 
                   SizedBox(height: 16),
-
                   // Gender
-                  TextField(
-                    controller: Gender_Controller,
+                  DropdownButtonFormField<String>(
+                    value: null,
                     decoration: InputDecoration(
                       hintText: 'Gender',
                       prefixIcon: Icon(Icons.male),
@@ -168,6 +170,18 @@ class _SignUp_PageState extends State<SignUp_Page> {
                         vertical: 12,
                       ),
                     ),
+                    items: ['male', 'female']
+                        .map(
+                          (gender) => DropdownMenuItem<String>(
+                            value: gender,
+                            child: Text(gender),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      Gender_Controller.text =
+                          value!; // نخزن القيمة في الكنترولر
+                    },
                   ),
 
                   SizedBox(height: 16),
@@ -180,7 +194,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
                       child: Text(
                         "Add Your  photo",
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Color(0xFF244476),
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -208,7 +222,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
                                   height: 150,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    color: Colors.black12,
+                                    color: Color(0xFF244476),
                                     image: DecorationImage(
                                       image: FileImage(photo!),
                                       fit: BoxFit.cover,
@@ -251,7 +265,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
                           onTap: getImage,
                           height: 50,
                           width: 150,
-                          color: Colors.black,
+                          color: Color(0xFF244476),
                           text: "Use Gallery",
                         ),
                         Padding(
@@ -260,7 +274,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
                             onTap: getImageCamera,
                             height: 50,
                             width: 150,
-                            color: Colors.black,
+                            color: Color(0xFF244476),
                             text: "UseCamera",
                           ),
                         ),
@@ -366,7 +380,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Color(0xFF244476),
                         padding: EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -388,7 +402,7 @@ class _SignUp_PageState extends State<SignUp_Page> {
                     children: [
                       Text(
                         'Do you have an account? >> please login',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Color(0xFF244476)),
                       ),
 
                       TextButton.icon(

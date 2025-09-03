@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
       home: Login_Page(),
     );
   }
+
+  static of(BuildContext context) {}
 }
 
 
