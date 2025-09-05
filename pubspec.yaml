@@ -28,6 +28,10 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  dio: ^5.7.0 # للتحميل كبايتات + Progress
+  path_provider: ^2.1.3 # لمسار حفظ الملف
+  open_filex: ^4.4.0
+
   image_picker: ^1.1.2
   flutter:
     sdk: flutter

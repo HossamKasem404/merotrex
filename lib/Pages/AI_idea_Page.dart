@@ -18,6 +18,7 @@ class AiIdea_Page extends StatelessWidget {
           ],
         ),
       ),
+      backgroundColor: const Color(0xFFEBF2D6),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(24),
         child: Column(

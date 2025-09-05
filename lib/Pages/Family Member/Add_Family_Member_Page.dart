@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ptow/Widget/buttonWidget.dart';
 import 'package:ptow/services/Add_FamilyMemeber_Service.dart';
 
 class Add_Family_Member_Page extends StatefulWidget {
@@ -13,23 +15,31 @@ class Add_Family_Member_Page extends StatefulWidget {
 }
 
 class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
-  Uint8List? photo;
+  File? photo;
+
+  getImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+    final imageTemporary = File(image.path);
+    setState(() {
+      photo = imageTemporary;
+    });
+  }
+
+  getImageCamera() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+    if (image == null) return;
+    final imageTemporary = File(image.path);
+    setState(() {
+      photo = imageTemporary;
+    });
+  }
 
   final _formField = GlobalKey<FormState>();
   final Name_Controller = TextEditingController();
   final gender_Controller = TextEditingController();
   final date_of_birth_Controller = TextEditingController();
   final relation_Controller = TextEditingController();
-
-  getImageCamera() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.camera);
-    if (image == null) return;
-
-    final imageBytes = await image.readAsBytes(); // ✅ للويب
-    setState(() {
-      photo = imageBytes;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,55 +165,149 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
 
                 const SizedBox(height: 12),
 
-                Center(
-                  child: photo != null
-                      ? Container(
-                          width: 200,
-                          height: 200,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            image: DecorationImage(
-                              image: MemoryImage(photo!), // ✅ للويب
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        )
-                      : Container(
-                          width: 200,
-                          height: 200,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF244476),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: const Icon(
-                            Icons.camera_alt,
-                            size: 50,
-                            color: Colors.white,
-                          ),
-                        ),
-                ),
-
-                const SizedBox(height: 16),
-
-                Center(
-                  child: ElevatedButton.icon(
-                    onPressed: getImageCamera,
-                    icon: const Icon(Icons.camera),
-                    label: const Text("Use Camera"),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF244476),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                // Center(
+                //   child: photo != null
+                //       ? Container(
+                //           width: 200,
+                //           height: 200,
+                //           decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(16),
+                //             image: DecorationImage(
+                //               image: MemoryImage(photo!), // ✅ للويب
+                //               fit: BoxFit.cover,
+                //             ),
+                //           ),
+                //         )
+                //       : Container(
+                //           width: 200,
+                //           height: 200,
+                //           decoration: BoxDecoration(
+                //             color: const Color(0xFF244476),
+                //             borderRadius: BorderRadius.circular(16),
+                //           ),
+                //           child: const Icon(
+                //             Icons.camera_alt,
+                //             size: 50,
+                //             color: Colors.white,
+                //           ),
+                //         ),
+                // ),
+                const Positioned(
+                  top: 450,
+                  left: 30,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 20, left: 20),
+                    child: Text(
+                      "Add Your  photo",
+                      style: TextStyle(
+                        color: Color(0xFF244476),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
+                Positioned(
+                  top: 480,
+                  left: 30,
+                  right: 30,
+                  child: Stack(
+                    children: [
+                      photo != null
+                          ? Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 16,
+                              ),
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                  right: 15,
+                                  top: 10,
+                                ),
+                                width: 400,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Color(0xFF244476),
+                                  image: DecorationImage(
+                                    image: FileImage(photo!),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 16,
+                              ),
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                  right: 15,
+                                  top: 10,
+                                ),
+                                width: 400,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                  image: const DecorationImage(
+                                    image: AssetImage(""),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  top: 680,
+                  left: 30,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ButtonWidget(
+                        onTap: getImage,
+                        height: 50,
+                        width: 150,
+                        color: Color(0xFF244476),
+                        text: "Use Gallery",
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: ButtonWidget(
+                          onTap: getImageCamera,
+                          height: 50,
+                          width: 150,
+                          color: Color(0xFF244476),
+                          text: "UseCamera",
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
 
+                const SizedBox(height: 16),
+
+                // Center(
+                //   child: ElevatedButton.icon(
+                //     onPressed: getImageCamera,
+                //     icon: const Icon(Icons.camera),
+                //     label: const Text("Use Camera"),
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: const Color(0xFF244476),
+                //       foregroundColor: Colors.white,
+                //       padding: const EdgeInsets.symmetric(
+                //         horizontal: 24,
+                //         vertical: 12,
+                //       ),
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(12),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(height: 32),
 
                 SizedBox(

@@ -11,11 +11,11 @@ class Family_Member_Analysis_Page extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xFF244476),
         elevation: 0,
         title: Text(
           'Family Member Analysis',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: const Color(0xFFEBF2D6)),
         ),
         actions: [
           IconButton(
@@ -26,6 +26,7 @@ class Family_Member_Analysis_Page extends StatelessWidget {
           ),
         ],
       ),
+      backgroundColor: const Color(0xFFEBF2D6),
 
       body: FutureBuilder(
         future: Get_FamilyMember_Records_Service().get_Family_Member_analysis(

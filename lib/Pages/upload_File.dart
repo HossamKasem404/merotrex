@@ -58,6 +58,7 @@ class _Upload_File_PageState extends State<Upload_File_Page> {
           ],
         ),
       ),
+      backgroundColor: const Color(0xFFEBF2D6),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(

@@ -16,16 +16,7 @@ class SignUp_Page extends StatefulWidget {
 
 class _SignUp_PageState extends State<SignUp_Page> {
   File? photo;
-  // getImage() async {
-  //   final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   if (image == null) {
-  //     return;
-  //   }
-  //   final imageTemporary = File(image.path);
-  //   setState(() {
-  //     photo = imageTemporary;
-  //   });
-  // }
+
   getImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image == null) return;
@@ -35,17 +26,6 @@ class _SignUp_PageState extends State<SignUp_Page> {
     });
   }
 
-  // getImageCamera() async {
-  //   final image = await ImagePicker().pickImage(source: ImageSource.camera);
-  //   if (image == null) {
-  //     return;
-  //   }
-
-  //   final imageTemporary = File(image.path);
-  //   setState(() {
-  //     photo = imageTemporary;
-  //   });
-  // }
   getImageCamera() async {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
     if (image == null) return;

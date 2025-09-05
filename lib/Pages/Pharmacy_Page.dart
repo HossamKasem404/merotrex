@@ -20,7 +20,7 @@ class Pharmacy_Page extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xFF244476),
         elevation: 0,
         title: Text('Nearby Pharmacies', style: TextStyle(color: Colors.white)),
         actions: [

@@ -8,7 +8,7 @@ class Member_Analysis_Page extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xFF244476),
         elevation: 0,
         title: Text('Personal Analysis', style: TextStyle(color: Colors.white)),
         actions: [
@@ -20,6 +20,7 @@ class Member_Analysis_Page extends StatelessWidget {
           ),
         ],
       ),
+      backgroundColor: const Color(0xFFEBF2D6),
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
