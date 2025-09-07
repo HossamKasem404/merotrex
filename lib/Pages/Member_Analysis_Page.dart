@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ptow/Pages/upload_File.dart';
 import 'package:ptow/Widget/My_Analysis_Widget.dart';
-import 'package:ptow/main.dart';
 import 'package:ptow/services/Get_My_Records_Service.dart';
 
-class Member_Analysis_Page extends StatelessWidget {
+class Member_Analysis_Page extends StatefulWidget {
+  @override
+  State<Member_Analysis_Page> createState() => _Member_Analysis_PageState();
+}
+
+class _Member_Analysis_PageState extends State<Member_Analysis_Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -23,13 +27,19 @@ class Member_Analysis_Page extends StatelessWidget {
       backgroundColor: const Color(0xFFEBF2D6),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        backgroundColor: Color(0xFF244476),
+        hoverColor: Colors.white,
+        onPressed: () async {
+          final result = await Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => Upload_File_Page()),
           );
+
+          if (result == true) {
+            setState(() {});
+          }
         },
-        child: Icon(Icons.add),
+        child: Text('AI+', style: TextStyle(color: Colors.white)),
       ),
 
       body: FutureBuilder(

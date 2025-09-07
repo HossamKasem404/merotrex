@@ -26,9 +26,7 @@ class Pharmacy_Page extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
-            onPressed: () {
-              // يمكنك إضافة إجراء عند الضغط
-            },
+            onPressed: () {},
           ),
         ],
       ),
@@ -48,9 +46,7 @@ class Pharmacy_Page extends StatelessWidget {
               children: [Text(pharmacy['address']!), Text(pharmacy['phone']!)],
             ),
             trailing: Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: () {
-              // يمكنك وضع التوجيه أو أي حدث هنا
-            },
+            onTap: () {},
           );
         },
       ),

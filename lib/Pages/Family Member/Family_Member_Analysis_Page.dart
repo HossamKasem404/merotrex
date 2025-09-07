@@ -45,14 +45,11 @@ class Family_Member_Analysis_Page extends StatelessWidget {
           }
           if (snapshot.hasData) {
             final analysis_List = snapshot.data!;
-            //  final analysis_List = snapshot.data!;
 
             if (analysis_List.data.isEmpty) {
-              // ✅ السيرفر رجع List فاضي
               return Center(
                 child: Text(
-                  analysis_List
-                      .Message, // مثل "no records for this member in our database"
+                  analysis_List.Message,
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               );

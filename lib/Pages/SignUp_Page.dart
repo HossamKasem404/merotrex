@@ -264,18 +264,30 @@ class _SignUp_PageState extends State<SignUp_Page> {
 
                   SizedBox(height: 16),
 
-                  // Gender
-                  TextField(
+                  TextFormField(
                     controller: date_of_birth_Controller,
+                    readOnly: true,
                     decoration: InputDecoration(
                       hintText: 'year-month-day',
-                      prefixIcon: Icon(Icons.male),
+                      prefixIcon: IconButton(
+                        icon: const Icon(Icons.date_range),
+                        onPressed: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime.now(),
+                          );
+
+                          if (pickedDate != null) {
+                            String formattedDate =
+                                "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+                            date_of_birth_Controller.text = formattedDate;
+                          }
+                        },
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
                       ),
                     ),
                   ),

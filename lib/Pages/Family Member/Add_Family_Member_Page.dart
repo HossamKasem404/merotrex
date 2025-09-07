@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ptow/Widget/buttonWidget.dart';
@@ -165,33 +164,6 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
 
                 const SizedBox(height: 12),
 
-                // Center(
-                //   child: photo != null
-                //       ? Container(
-                //           width: 200,
-                //           height: 200,
-                //           decoration: BoxDecoration(
-                //             borderRadius: BorderRadius.circular(16),
-                //             image: DecorationImage(
-                //               image: MemoryImage(photo!), // ✅ للويب
-                //               fit: BoxFit.cover,
-                //             ),
-                //           ),
-                //         )
-                //       : Container(
-                //           width: 200,
-                //           height: 200,
-                //           decoration: BoxDecoration(
-                //             color: const Color(0xFF244476),
-                //             borderRadius: BorderRadius.circular(16),
-                //           ),
-                //           child: const Icon(
-                //             Icons.camera_alt,
-                //             size: 50,
-                //             color: Colors.white,
-                //           ),
-                //         ),
-                // ),
                 const Positioned(
                   top: 450,
                   left: 30,
@@ -290,24 +262,6 @@ class _Add_Family_Member_PageState extends State<Add_Family_Member_Page> {
 
                 const SizedBox(height: 16),
 
-                // Center(
-                //   child: ElevatedButton.icon(
-                //     onPressed: getImageCamera,
-                //     icon: const Icon(Icons.camera),
-                //     label: const Text("Use Camera"),
-                //     style: ElevatedButton.styleFrom(
-                //       backgroundColor: const Color(0xFF244476),
-                //       foregroundColor: Colors.white,
-                //       padding: const EdgeInsets.symmetric(
-                //         horizontal: 24,
-                //         vertical: 12,
-                //       ),
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(12),
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 const SizedBox(height: 32),
 
                 SizedBox(

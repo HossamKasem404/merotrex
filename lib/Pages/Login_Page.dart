@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ptow/Pages/Forget_Password/Forget_Password_Page.dart';
-import 'package:ptow/Pages/Home_Page.dart';
 import 'package:ptow/Pages/SignUp_Page.dart';
 import 'package:ptow/services/LogIn_Service.dart';
 
@@ -123,6 +122,7 @@ class Login_Page extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -149,7 +149,10 @@ class Login_Page extends StatelessWidget {
                     );
                   },
                   icon: Icon(Icons.person_add_alt, size: 20),
-                  label: Text('Sign Up'),
+                  label: Text(
+                    'Sign Up',
+                    style: TextStyle(color: Color(0xFF244476)),
+                  ),
                 ),
               ],
             ),
@@ -159,5 +162,3 @@ class Login_Page extends StatelessWidget {
     );
   }
 }
-
-// Dummy screens for navigation

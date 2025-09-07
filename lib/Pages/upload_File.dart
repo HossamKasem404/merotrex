@@ -23,11 +23,10 @@ class _Upload_File_PageState extends State<Upload_File_Page> {
     final imageTemporary = File(image.path);
     setState(() {
       photo = imageTemporary;
-      pdfFile = null; // reset pdf if image chosen
+      pdfFile = null;
     });
   }
 
-  // Pick PDF file
   Future<void> pickPDF() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -37,7 +36,7 @@ class _Upload_File_PageState extends State<Upload_File_Page> {
     if (result != null) {
       setState(() {
         pdfFile = File(result.files.single.path!);
-        photo = null; // reset image if pdf chosen
+        photo = null;
       });
     }
   }
@@ -100,7 +99,6 @@ class _Upload_File_PageState extends State<Upload_File_Page> {
 
                   SizedBox(height: 20),
 
-                  // File/Image preview
                   if (photo != null)
                     Container(
                       width: 400,

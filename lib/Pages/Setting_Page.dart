@@ -23,7 +23,6 @@ class _Settings_PageState extends State<Settings_Page> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Theme Section
             Text(
               'Theme',
               style: TextStyle(
@@ -100,7 +99,6 @@ class _Settings_PageState extends State<Settings_Page> {
 
             SizedBox(height: 32),
 
-            // Language Section
             Text(
               'Language',
               style: TextStyle(

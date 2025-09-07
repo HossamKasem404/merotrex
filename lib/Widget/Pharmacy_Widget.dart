@@ -31,9 +31,7 @@ class Pharmacy_Widget extends StatelessWidget {
           ],
         ),
         trailing: Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-        onTap: () {
-          // هون ممكن تفتح صفحة تفاصيل الصيدلية
-        },
+        onTap: () {},
       ),
     );
   }
